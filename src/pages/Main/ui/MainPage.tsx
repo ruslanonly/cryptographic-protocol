@@ -1,4 +1,4 @@
-import { GenerateKlausSchnorrKeys } from "@/entities/KlausSchnorr";
+import { GenerateStandartKeys } from "@/entities/KlausSchnorr";
 import { GeneratePrimeNumber, TestPrimeNumber } from "@/entities/PrimeNumber";
 import { Page } from "@/shared";
 import { Stack } from "@mui/material";
@@ -9,7 +9,7 @@ export default function MainPage() {
       <Stack spacing={2}>
         <GeneratePrimeNumber/>
         <TestPrimeNumber/>
-        <GenerateKlausSchnorrKeys/>
+        <GenerateStandartKeys/>
       </Stack>
     </Page>
   )

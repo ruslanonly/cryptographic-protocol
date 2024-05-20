@@ -3,8 +3,6 @@ import { create } from "zustand";
 export enum AuthStep {
     AFirst = 1,
     BFirst = 2,
-    ASecond = 3,
-    BSecond = 4
 }
 
 interface IAuthenticationStore {

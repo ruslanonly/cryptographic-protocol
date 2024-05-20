@@ -1,28 +1,11 @@
-import { SchnorrService, Tile, useAuthenticationStore } from "@/shared";
+import { Tile } from "@/shared";
+import { StandardService } from "@/shared/lib/StandartService";
+import { useStandartStore } from "@/shared/model/store/standart";
 import { Button, FormControl, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
-// const generatePQ = (depth: number): [bigint, bigint] => {
-//     const a = BigInt(10 ** (depth - 1));
-//     const b = a * 10n - 1n;
-
-//     const generatePrimePair = (): [bigint, bigint] => {
-//         const draftP = generatePrimeNumber(a, b);
-//         const draftQ = generatePrimeNumber(a, b);
-
-//         if (draftP === draftQ || (draftP - 1n) % draftQ === 0n) {
-//             // Recursively try again if the conditions are not satisfied
-//             return generatePrimePair();
-//         }
-
-//         return [draftP, draftQ];
-//     };
-
-//     return generatePrimePair();
-// };
-
 export function GeneratePrimeNumber() {
-    const { p, q, setAttr } = useAuthenticationStore((state) => state)
+    const { p, q, a, setAttr } = useStandartStore((state) => state)
     const [bits, setBits] = useState<number>()
 
     const handleDepthChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
@@ -35,9 +18,10 @@ export function GeneratePrimeNumber() {
 
     const generateNumbers = () => {
         if (bits) {
-            const {p: draftP, q: draftQ} = SchnorrService.generatePQ(bits)
+            const {p: draftP, q: draftQ, a: draftA} = StandardService.generatePQA(bits)
             setAttr('p', draftP);
             setAttr('q', draftQ);
+            setAttr('a', draftA);
         }
     }
 
@@ -66,14 +50,18 @@ export function GeneratePrimeNumber() {
                     </Button>
                     
                 </Stack>
-                {!!p && !!q && (
+                {!!p && !!q && !!a && (
                     <>
-                        <Typography>
+                        <Typography sx={{wordBreak: 'break-all'}}>
                             P = {p.toString()}
                         </Typography>
 
-                        <Typography>
+                        <Typography sx={{wordBreak: 'break-all'}}>
                             Q = {q.toString()}
+                        </Typography>
+
+                        <Typography sx={{wordBreak: 'break-all'}}>
+                            A = {a.toString()}
                         </Typography>
                     </>
                 )}

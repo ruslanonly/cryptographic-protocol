@@ -46,8 +46,6 @@ export class MathService {
     }
 
     static isPrimeFermat(n: bigint, k: number = 5) {
-      console.log('random', this.random)
-
       if (n <= 1n) {
         return false;
       }
@@ -128,6 +126,15 @@ export class MathService {
         }
       }
       return null;
+    }
+
+    static bitLength(n: bigint): number {
+      let count = 0;
+      while (n > 0) {
+        count++;
+        n >>= 1n;
+      }
+      return count;
     }
 }
   

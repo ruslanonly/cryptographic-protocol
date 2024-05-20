@@ -1,8 +1,9 @@
-import { Tile, useAuthenticationStore } from "@/shared";
+import { Tile } from "@/shared";
 import { Alert, AlertTitle, Button, Collapse, FormControl, InputLabel, MenuItem, Select, Stack, Typography } from "@mui/material";
 import { PrimeTest } from "../../model/PrimeTest";
 import { useEffect, useState } from "react";
 import { MathService } from "@/shared/lib/math";
+import { useStandartStore } from "@/shared/model/store/standart";
 
 const getTesterFn = (test: PrimeTest) => {
   switch(test) {
@@ -12,7 +13,7 @@ const getTesterFn = (test: PrimeTest) => {
 }
 
 export function TestPrimeNumber() {
-  const { p, q, setArePrime, setAttr } = useAuthenticationStore((state) => state)
+  const { p, q, a, setArePrime, setAttr } = useStandartStore((state) => state)
   const [primeTest, setPrimeTest] = useState<PrimeTest>()
 
   const [testResult, setTestResult] = useState<[boolean, boolean]>()
@@ -33,12 +34,11 @@ export function TestPrimeNumber() {
     setTestResult(undefined)
     setAttr('x', undefined)
     setAttr('y', undefined)
-    setAttr('g', undefined)
     setArePrime(false)
   }, [p, q, primeTest, setTestResult, setArePrime, setAttr])
 
   return (
-    <Tile disabled={!p || !q}>
+    <Tile disabled={!p || !q || !a}>
       <Stack spacing={3}>
         <Typography variant="h5">
         Проверка простого числа
